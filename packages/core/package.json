@@ -1,0 +1,19 @@
+{
+  "name": "@sewan/core",
+  "version": "1.0.0",
+  "description": "React component which provide common resources and logic to his children.",
+  "private": true,
+  "module": "/dist/core.js",
+  "scripts": {
+    "build": "build -- ./src/index.js",
+    "build-watch": "build --watch -- ./src/index.js"
+  },
+  "peerDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^6.0.0-beta.0"
+  },
+  "devDependencies": {
+    "@sewan/module-builder": "^1.0.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@sewan/create-app",
+  "private": "true",
+  "version": "1.0.0",
+  "description": "Starter-kit to create a pre-configured Foundation CRA.",
+  "bin": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Antoine BERNIER <antoine.bernier@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.5"
+  }
+}
+
