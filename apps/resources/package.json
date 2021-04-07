@@ -1,0 +1,34 @@
+{
+  "name": "@sewan/resources",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.1",
+    "@sewan/core": "^1.0.0"
+  },
+  "module": "/dist/resources.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "build -- ./src/Resources.js",
+    "build-watch": "build --watch -- ./src/Resources.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

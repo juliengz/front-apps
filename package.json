@@ -14,7 +14,9 @@
     "build": "NODE_ENV=production npm run build npm run --prefix packages/core build"
   },
   "workspaces": [
-    "packages/*",
+    "packages/core",
+    "packages/module-builder",
+    "packages/create-app",
     "apps/*"
   ]
 }

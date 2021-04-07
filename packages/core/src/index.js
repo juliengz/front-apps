@@ -5,8 +5,9 @@ import {Routes, Route} from 'react-router-dom'
 export default function Core({children}) {
     return (
         <BrowserRouter>
-            <h1>Foundation</h1>
+            <quote>START CORE (I take care of the routing, and i can do much more !)</quote>
             {children}
+            <quote>END CORE</quote>
         </BrowserRouter>
     )
 }

@@ -16,9 +16,10 @@ module.exports = {
     output: {
         path: path.resolve('dist'),
         filename: filename,
-        library: {
-            type: 'umd'
-        }
+        libraryTarget: 'umd',
+        // library: {
+        //     type: 'umd'
+        // }
     },
     module: {
         rules: [
@@ -37,7 +38,7 @@ module.exports = {
     },
     externals: {
         // @TODO: Explain this !!!
-        // "react-router-dom": "react-router-dom",
+        "react-router-dom": "react-router-dom",
         "react": "react",
         "react-dom": "react-dom",
     }
