@@ -1,19 +1,27 @@
 import {Routes, Route, Link, NavLink} from 'react-router-dom'
 import React from 'react';
+import styled from 'styled-components'
+
+const SResourcesContent = styled.div`
+  background: ivory;
+  border: 1px solid #000;
+  margin: 2rem 0;
+  padding: .33rem 1rem`;
+
+export const SInfo = styled.div`color: DarkCyan;background:white;display:inline-block;padding:.25em`;
 
 export default function Resources() {
     return (
-        <React.Fragment>
-            <p>
-                <hr />
-                <h3>Resources application</h3>
-                <NavLink to=".">Resources Home</NavLink> - <NavLink to="list">Resources List</NavLink>{" "}
-            </p>
+        <SResourcesContent>
+            <h3>Resources application</h3>
+            <SInfo>(I use styled component V4.1.0 & i use router provided by Core
+                component)</SInfo>
+            <NavLink to=".">Resources Home</NavLink> - <NavLink to="list">Resources List</NavLink>{" "}
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/list" element={<List/>}/>
             </Routes>
-        </React.Fragment>
+        </SResourcesContent>
     )
 }
 
