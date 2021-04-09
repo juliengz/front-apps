@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "React component which provide common resources and logic to his children.",
   "private": true,
-  "module": "/dist/core.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "scripts": {
     "build": "build -- ./src/index.js",
     "build-watch": "build --watch -- ./src/index.js"

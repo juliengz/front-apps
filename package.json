@@ -10,13 +10,13 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "build-watch": "npm run --prefix packages/core build-watch",
-    "build": "NODE_ENV=production npm run build npm run --prefix packages/core build"
+    "dev": "lerna exec --scope @sewan/resources -- npm run build-watch"
   },
   "workspaces": [
-    "packages/core",
-    "packages/module-builder",
-    "packages/create-app",
+    "packages/*",
     "apps/*"
-  ]
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
 }

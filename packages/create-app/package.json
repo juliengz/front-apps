@@ -1,7 +1,6 @@
 {
   "name": "@sewan/create-app",
-  "private": "true",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Starter-kit to create a pre-configured Foundation CRA.",
   "bin": "index.js",
   "scripts": {
@@ -13,4 +12,3 @@
     "minimist": "^1.2.5"
   }
 }
-

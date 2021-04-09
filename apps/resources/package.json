@@ -1,14 +1,16 @@
 {
   "name": "@sewan/resources",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "peerDependencies": {
+    "@sewan/foundation-core": "^1.0.0"
+  },
   "dependencies": {
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.1",
-    "@sewan/core": "^1.0.0",
     "styled-components": "^4.3.2"
   },
-  "module": "/dist/resources.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "build -- ./src/Resources.js",

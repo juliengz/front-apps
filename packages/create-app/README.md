@@ -1,5 +1,5 @@
 Starter-kit to create Foundation CRA.
 
 ```sh
-npm init @sewan/foundation-app mycra
+npm init @sewan/create-app
 ```
