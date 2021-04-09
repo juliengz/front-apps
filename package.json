@@ -10,13 +10,15 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "dev": "lerna exec --scope @sewan/resources -- npm run build-watch"
+    "dev": "lerna exec --scope @sewan/resources -- npm run build-watch",
+    "eslint": "eslint --config .eslintrc ."
   },
   "workspaces": [
     "packages/*",
     "apps/*"
   ],
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "eslint": "^7.23.0"
   }
 }
