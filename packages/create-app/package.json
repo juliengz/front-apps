@@ -1,8 +1,11 @@
 {
   "name": "@sewan/create-app",
+  "private": "true",
   "version": "1.0.1",
   "description": "Starter-kit to create a pre-configured Foundation CRA.",
-  "bin": "index.js",
+  "bin": {
+    "init-app": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
