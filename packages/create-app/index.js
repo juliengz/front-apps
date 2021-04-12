@@ -110,7 +110,7 @@ async function updateApp(projectName) {
 }
 
 async function main() {
-    const projectAbsolutePath = await createReactApp(projectName)
+    const projectAbsolutePath = await createReactApp(projectName);
     const isUpdated = await updateApp(projectName);
     console.log(`🙌 Project ${projectAbsolutePath} successfully created!`);
 }
