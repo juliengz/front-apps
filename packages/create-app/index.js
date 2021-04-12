@@ -1,41 +1,27 @@
 #!/usr/bin/env node
-
-const minimist = require('minimist')
-const fs = require('fs')
-
-// const {promisify} = require('util')
-const {spawn} = require('child_process')
-// const exec2 = promisify(exec)
-
-const {readFileSync} = require('fs')
-const {resolve} = require('path')
-
+const minimist = require('minimist');
+const fs = require('fs');
+const {spawn} = require('child_process');
+const {readFileSync} = require('fs');
+const {resolve} = require('path');
 const argv = minimist(process.argv.slice(2));
-
-// console.log(argv)
+const path = require('path');
 
 function help() {
     const man = readFileSync(resolve(__dirname, './man.txt'), {encoding: 'utf-8'});
     console.log(man);
 }
 
-// --help
 if (argv.help) {
     help()
     process.exit(0);
 }
 
-// function generateProjectName() {
-//   return generateName({number: true}).dashed
-// }
-
 let projectName = argv._[0]
-if (!projectName) {
-    // projectName = generateProjectName()
+if (!projectName || path.basename(path.resolve()) !== 'apps') {
     help()
     process.exit(1)
 }
-console.log(projectName)
 
 const json = `{
     "name": "@sewan/${projectName}",
@@ -73,6 +59,7 @@ const json = `{
     }
 }`;
 
+
 async function createReactApp(projectName) {
     return new Promise((resolve, reject) => {
         const templatePath = require('path').resolve(__dirname, './cra-template-foundation');
@@ -93,34 +80,29 @@ async function createReactApp(projectName) {
 async function updateApp(projectName) {
     return new Promise((resolve, reject) => {
         const projectPath = require('path').join('./', projectName);
-
-        // write package.json
         const packageFile = require('path').join(projectPath, '/package.json');
+        const nodeModulesDir = require('path').join(projectPath, '/node_modules');
+        const packageLockFile = require('path').join(projectPath, '/package-lock.json');
 
         try {
+            // Write package.json
             fs.writeFileSync(packageFile, json);
+
+            // Remove node_modules
+            fs.rmdirSync(nodeModulesDir, {recursive: true});
+
+            // Remove package-lock.json
+            fs.unlinkSync(packageLockFile)
         } catch (err) {
             console.log(err);
         }
 
-        // remove node_modules
-        const nodeModulesDir = require('path').join(projectPath, '/node_modules');
-
-        // remove package-lock.json
-        const packageLockFile = require('path').join(projectPath, '/package-lock.json');
-        fs.unlink(packageLockFile, (err) => {
-            if (err) {
-                console.log(err);
-            }
-        })
-
-        // Run npm instal from project root
-        console.log(require('path').resolve(__dirname, '../../'));
+        // Run npm install from project root
         const cra = spawn('npm', ['install'], {cwd: require('path').resolve(__dirname, '../../')});
         cra.on('exit', code => {
-            // if (code !== 0) {
-            //     reject(new Error('Install after CRA failed'));
-            // }
+            if (code !== 0) {
+                reject(new Error('Post create react app task (npm install from the root) failed'));
+            }
 
             resolve(true);
         })
