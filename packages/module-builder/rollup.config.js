@@ -1,7 +1,5 @@
 import path from 'path'
 import builtins from 'builtin-modules'
-
-// import replace from '@rollup/plugin-replace'
 import babel from '@rollup/plugin-babel'
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
@@ -12,7 +10,7 @@ const cwd = process.cwd();
 console.log('cwd', cwd);
 
 const pkg = require(path.resolve(cwd, "package.json"));
-const pkgCore = require('@sewan/core/package.json')
+const pkgCore = require('@sewan/core/package.json');
 
 const output1 = path.resolve(cwd, pkg.main || `dist/index.cjs.js`); // CJS
 const output2 = path.resolve(cwd, pkg.module || `dist/index.esm.js`); // ESM
@@ -26,7 +24,6 @@ const external = [
     ...Object.keys(pkg.dependencies || {}),
     ...Object.keys(pkg.peerDependencies || {}),
 ];
-console.log('external', external)
 
 export default {
     output: [
