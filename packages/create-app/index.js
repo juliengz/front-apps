@@ -37,12 +37,15 @@ if (!projectName) {
 }
 console.log(projectName)
 
-const json = {
-    "name": projectName,
+const json = `{
+    "name": "@sewan/${projectName}",
     "version": "1.0.0",
     "private": true,
+    "peerDependencies": {
+        "@sewan/core": "^1.0.0"
+    },
     "dependencies": {
-        "react-scripts": "4.0.3",
+        "react-scripts": "4.0.3"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -68,65 +71,69 @@ const json = {
             "last 1 safari version"
         ]
     }
-};
-
-const storeData = (data, path) => {
-    try {
-        fs.writeFileSync(path, JSON.stringify(data))
-    } catch (err) {
-        console.error(err)
-    }
-}
+}`;
 
 async function createReactApp(projectName) {
     return new Promise((resolve, reject) => {
-        const templatePath = require('path').resolve(__dirname, './cra-template-foundation')
-        const template = `file:${templatePath}`
-        console.log('template=', template)
+        const templatePath = require('path').resolve(__dirname, './cra-template-foundation');
+        const template = `file:${templatePath}`;
 
         const cra = spawn('npx', ['create-react-app', projectName, '--use-npm', '--template', template], {stdio: 'inherit'})
         cra.on('exit', code => {
             if (code !== 0) {
-                reject(new Error('CRA failed'))
+                reject(new Error('CRA failed'));
             }
 
-            const packageFile = require('path').join('./', projectName, '/package.json')
-            storeData(json, packageFile);
-
-            const dir = require('path').join('./', projectName, '/node_modules')
-            fs.rmdirSync(dir, { recursive: true });
-
-            const packageLockFile = require('path').join('./', projectName, '/package-lock.json')
-
-            fs.unlink(packageLockFile, (err) => {
-                if (err) {
-                    console.error(err)
-                    return
-                }
-            })
-
-            const abspath = resolve(projectName)
-            resolve(abspath)
-        })
+            const abspath = resolve(projectName);
+            resolve(abspath);
+        });
     })
 }
 
-async function installApp(projectName) {
+async function updateApp(projectName) {
     return new Promise((resolve, reject) => {
-        const cra = spawn('npm', ['install'], {cwd: require('path').resolve(__dirname, '../')})
+        const projectPath = require('path').join('./', projectName);
+
+        // write package.json
+        const packageFile = require('path').join(projectPath, '/package.json');
+
+        try {
+            fs.writeFileSync(packageFile, json);
+        } catch (err) {
+            console.log(err);
+        }
+
+        // remove node_modules
+        const nodeModulesDir = require('path').join(projectPath, '/node_modules');
+
+        // remove package-lock.json
+        const packageLockFile = require('path').join(projectPath, '/package-lock.json');
+        fs.unlink(packageLockFile, (err) => {
+            if (err) {
+                console.log(err);
+            }
+        })
+
+        // Run npm instal from project root
+        console.log(require('path').resolve(__dirname, '../../'));
+        const cra = spawn('npm', ['install'], {cwd: require('path').resolve(__dirname, '../../')});
         cra.on('exit', code => {
-            resolve(true)
+            // if (code !== 0) {
+            //     reject(new Error('Install after CRA failed'));
+            // }
+
+            resolve(true);
         })
     })
 }
 
 async function main() {
     const projectAbsolutePath = await createReactApp(projectName)
-    const isInstalled = await installApp(projectName)
-    console.log(`🙌 Project ${projectAbsolutePath} successfully created!`)
+    const isUpdated = await updateApp(projectName);
+    console.log(`🙌 Project ${projectAbsolutePath} successfully created!`);
 }
 
 main().catch(err => {
-    console.error(err)
-    process.exit(1)
+    console.error(err);
+    process.exit(1);
 })
